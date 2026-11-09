@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mbugua Second Hand - Marketplace</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        
+        /* Navigation */
+        nav { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            padding: 1rem 2rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .logo { color: white; font-size: 1.5rem; font-weight: bold; }
+        nav div { display: flex; gap: 2rem; }
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        nav a:hover { transform: scale(1.1); }
+        
+        /* Main Layout */
+        main { padding: 2rem; max-width: 1100px; margin: auto; }
+        .section { display: none; }
+        .section.active { display: block; }
+        
+        /* Section Titles */
+        .section h2 { color: white; font-size: 2rem; margin-bottom: 2rem; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        
+        /* Items Grid */
+        #items-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .item { 
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); 
+            padding: 1.5rem; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            transition: all 0.3s;
+        }
+        .item:hover { transform: translateY(-8px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        .item img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+        .item h3 { color: #333; margin-bottom: 0.5rem; }
+        .item p { color: #555; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        
+        /* Form Styling */
+        form { 
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
+            padding: 2rem; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            max-width: 600px;
+        }
+        label { 
+            display: block; 
+            margin-top: 1rem; 
+            font-weight: bold; 
+            color: #333; 
+        }
+        input, textarea { 
+            width: 100%; 
+            padding: 0.7rem; 
+            margin-top: 0.5rem; 
+            border: 2px solid #667eea; 
+            border-radius: 5px; 
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        input:focus, textarea:focus { 
+            outline: none; 
+            border-color: #f5576c; 
+            box-shadow: 0 0 10px rgba(245, 87, 108, 0.3); 
+        }
+        button { 
+            margin-top: 1.5rem; 
+            padding: 0.8rem 2rem; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            transition: all 0.3s;
+        }
+        button:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        
+        /* Admin Items */
+        #pending-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .admin-item { 
+            margin: 0; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%); 
+            border: 2px solid #f5576c; 
+            border-radius: 10px; 
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .admin-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+        .admin-item h3 { margin-top: 0; margin-bottom: 0.5rem; }
+        .admin-item p { margin-bottom: 0.5rem; }
+        
+        .button-group { display: flex; gap: 1rem; margin-top: 1rem; }
+        .approve-btn { 
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+            padding: 0.6rem 1.5rem; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            font-weight: bold;
+            flex: 1;
+            transition: all 0.3s;
+        }
+        .reject-btn { 
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); 
+            padding: 0.6rem 1.5rem; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            font-weight: bold;
+            flex: 1;
+            transition: all 0.3s;
+        }
+        .approve-btn:hover, .reject-btn:hover { transform: scale(1.05); }
+        
+        /* Footer */
+        footer { 
+            background-color: #2c3e50; 
+            color: white; 
+            text-align: center; 
+            padding: 2rem; 
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            #items-list { grid-template-columns: 1fr; }
+            #pending-items { grid-template-columns: 1fr; }
+            form { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">🛍️ Mbugua Second Hand</div>
+        <div>
+            <a href="index.html">Home</a>
+            <a onclick="showSection('home')">Browse</a>
+            <a onclick="showSection('post')">Post Item</a>
+            <a onclick="showSection('admin')">Admin</a>
+        </div>
+    </nav>
+    
+    <main>
+        <div id="home" class="section active">
+            <h2>📦 Available Items</h2>
+            <div id="items-list"></div>
+        </div>
+        <div id="post" class="section">
+            <h2>📝 Post Your Item</h2>
+            <form id="post-form">
+                <label for="title">Item Title:</label>
+                <input type="text" id="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" rows="4" required></textarea>
+
+                <label for="price">Price (KSh):</label>
+                <input type="number" id="price" step="0.01" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" required>
+
+                <label for="image">Upload Image:</label>
+                <input type="file" id="image" accept="image/*">
+
+                <button type="submit">Post Item for Approval</button>
+            </form>
+        </div>
+        <div id="admin" class="section">
+            <h2>🔐 Admin Panel - Pending Items</h2>
+            <div id="pending-items"></div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 Mbugua Second Hand | Admin Contact: 0102032768</p>
+    </footer>
+
+    <script>
+        let items = JSON.parse(localStorage.getItem('items')) || [];
+        let pending = JSON.parse(localStorage.getItem('pending')) || [];
+
+        function saveData() {
+            localStorage.setItem('items', JSON.stringify(items));
+            localStorage.setItem('pending', JSON.stringify(pending));
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            if (sectionId === 'home') renderItems();
+            if (sectionId === 'admin') renderPending();
+        }
+
+        function renderItems() {
+            const list = document.getElementById('items-list');
+            list.innerHTML = '';
+            if (items.length === 0) {
+                list.innerHTML = '<p style="color: white; grid-column: 1/-1; text-align: center; font-size: 1.1rem;">No items available yet. Check back soon!</p>';
+                return;
+            }
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                const imageHtml = item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div style="width: 100%; height: 200px; background: #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">No Image</div>';
+                div.innerHTML = `
+                    ${imageHtml}
+                    <h3>${item.title}</h3>
+                    <p><strong>Price:</strong> KSh ${parseFloat(item.price).toLocaleString()}</p>
+                    <p><strong>Location:</strong> ${item.location}</p>
+                    <p>${item.description}</p>
+                    <p style="color: #f5576c; font-weight: bold; margin-top: 1rem;">📞 Contact Admin: 0102032768</p>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function renderPending() {
+            const list = document.getElementById('pending-items');
+            list.innerHTML = '';
+            if (pending.length === 0) {
+                list.innerHTML = '<p style="color: white; grid-column: 1/-1; text-align: center; font-size: 1.1rem;">No pending items</p>';
+                return;
+            }
+            pending.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'admin-item';
+                const imageHtml = item.image ? `<img src="${item.image}" alt="${item.title}">` : '<div style="width: 100%; height: 200px; background: rgba(0,0,0,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">No Image</div>';
+                div.innerHTML = `
+                    ${imageHtml}
+                    <h3>${item.title}</h3>
+                    <p><strong>Price:</strong> KSh ${parseFloat(item.price).toLocaleString()}</p>
+                    <p><strong>Location:</strong> ${item.location}</p>
+                    <p>${item.description}</p>
+                    <div class="button-group">
+                        <button class="approve-btn" onclick="approveItem(${index})">✅ Approve</button>
+                        <button class="reject-btn" onclick="rejectItem(${index})">❌ Reject</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        document.getElementById('post-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const price = document.getElementById('price').value;
+            const location = document.getElementById('location').value;
+            const imageFile = document.getElementById('image').files[0];
+            
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    pending.push({ title, description, price, location, image: event.target.result });
+                    saveData();
+                    alert('✅ Item posted for approval!');
+                    document.getElementById('post-form').reset();
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                pending.push({ title, description, price, location });
+                saveData();
+                alert('✅ Item posted for approval!');
+                this.reset();
+            }
+        });
+
+        function approveItem(index) {
+            items.push(pending[index]);
+            pending.splice(index, 1);
+            saveData();
+            renderPending();
+            alert('✅ Item approved and listed!');
+        }
+
+        function rejectItem(index) {
+            pending.splice(index, 1);
+            saveData();
+            renderPending();
+            alert('❌ Item rejected!');
+        }
+
+        // Initial render
+        renderItems();
+    </script>
+</body>
+</html>

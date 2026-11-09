@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Item</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background-color: #333; color: white; padding: 1rem; text-align: center; }
+        nav { background-color: #f4f4f4; padding: 0.5rem; text-align: center; }
+        nav a { margin: 0 1rem; text-decoration: none; color: #333; font-weight: bold; }
+        main { padding: 2rem; max-width: 600px; margin: auto; background: white; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        form { display: flex; flex-direction: column; }
+        label { margin-top: 1rem; }
+        input, textarea { padding: 0.5rem; margin-top: 0.5rem; }
+        button { margin-top: 1rem; padding: 0.5rem; background-color: #333; color: white; border: none; cursor: pointer; }
+        footer { background-color: #333; color: white; text-align: center; padding: 1rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Second Hand Commodities</h1>
+        <p>For Kiambu and Nairobi Areas</p>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/post">Post Item</a>
+        <a href="/admin">Admin</a>
+    </nav>
+    <main>
+        <h2>Post Your Item</h2>
+        <form method="post">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="price">Price (KSh):</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <button type="submit">Post Item</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2026 Second Hand Commodities. Admin: Mbugua</p>
+    </footer>
+</body>
+</html>

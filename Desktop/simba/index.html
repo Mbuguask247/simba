@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mbugua Second Hand - Home</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
+        
+        /* Navigation */
+        nav { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            padding: 1rem 2rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .logo { color: white; font-size: 1.5rem; font-weight: bold; }
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            margin-left: 2rem; 
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        nav a:hover { transform: scale(1.1); }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem;
+            color: white;
+        }
+        
+        .hero-content { flex: 1; padding: 2rem; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9; }
+        .hero-btn { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .hero-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        
+        /* 3D Container */
+        .hero-3d { 
+            flex: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        
+        .box-container {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 10s infinite linear;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        .box-face {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            opacity: 0.8;
+        }
+        
+        .box-front { background: rgba(255, 107, 107, 0.6); transform: translateZ(150px); }
+        .box-back { background: rgba(100, 200, 255, 0.6); transform: rotateY(180deg) translateZ(150px); }
+        .box-right { background: rgba(255, 200, 87, 0.6); transform: rotateY(90deg) translateZ(150px); }
+        .box-left { background: rgba(150, 100, 255, 0.6); transform: rotateY(-90deg) translateZ(150px); }
+        .box-top { background: rgba(100, 255, 150, 0.6); transform: rotateX(90deg) translateZ(150px); }
+        .box-bottom { background: rgba(255, 100, 200, 0.6); transform: rotateX(-90deg) translateZ(150px); }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .features h2 { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #333; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .feature-card .icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature-card h3 { color: #667eea; margin-bottom: 0.5rem; }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; }
+            .hero h1 { font-size: 2.5rem; }
+            .box-container { width: 200px; height: 200px; }
+            .box-face { width: 200px; height: 200px; }
+            .box-front, .box-back { transform: translateZ(100px); }
+            .box-right, .box-left { transform: rotateY(var(--rotation)) translateZ(100px); }
+            .box-top, .box-bottom { transform: rotateX(var(--rotation)) translateZ(100px); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">🛍️ Mbugua Second Hand</div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="marketplace.html">Browse Items</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Mbugua Second Hand</h1>
+            <p>Discover amazing deals on quality used items. Buy, sell, and trade with ease!</p>
+            <button class="hero-btn" onclick="window.location.href='marketplace.html'">Start Shopping</button>
+        </div>
+        <div class="hero-3d">
+            <div class="box-container">
+                <div class="box-face box-front">🛒</div>
+                <div class="box-face box-back">💰</div>
+                <div class="box-face box-right">📦</div>
+                <div class="box-face box-left">✨</div>
+                <div class="box-face box-top">🎁</div>
+                <div class="box-face box-bottom">🌟</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <h2>Why Choose Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">✅</div>
+                <h3>Easy to Use</h3>
+                <p>Simple and intuitive interface to post and find items quickly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔒</div>
+                <h3>Safe & Secure</h3>
+                <p>Your data is protected with our admin verification system.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">💬</div>
+                <h3>Direct Contact</h3>
+                <p>Connect directly with the admin to arrange transactions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🚀</div>
+                <h3>Fast & Reliable</h3>
+                <p>Quick item approval and instant visibility to buyers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📸</div>
+                <h3>Image Support</h3>
+                <p>Upload clear photos of your items to attract more buyers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🌍</div>
+                <h3>Wide Reach</h3>
+                <p>Reach customers in Kiambu, Nairobi, and beyond!</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2026 Mbugua Second Hand. Admin Contact: 0102032768</p>
+    </footer>
+</body>
+</html>

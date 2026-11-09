@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Hand Commodities - Kiambu & Nairobi</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background-color: #333; color: white; padding: 1rem; text-align: center; }
+        nav { background-color: #f4f4f4; padding: 0.5rem; text-align: center; }
+        nav a { margin: 0 1rem; text-decoration: none; color: #333; font-weight: bold; }
+        main { padding: 2rem; }
+        .item { background: white; margin: 1rem 0; padding: 1rem; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        footer { background-color: #333; color: white; text-align: center; padding: 1rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Second Hand Commodities</h1>
+        <p>For Kiambu and Nairobi Areas</p>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/post">Post Item</a>
+        <a href="/admin">Admin</a>
+    </nav>
+    <main>
+        <h2>Available Items</h2>
+        {% for item in items %}
+        <div class="item">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            <p><strong>Price:</strong> KSh {{ item.price }}</p>
+            <p><strong>Location:</strong> {{ item.location }}</p>
+            <p><strong>Contact Admin:</strong> 0102032768</p>
+            <p><em>Posted on: {{ item.posted_at }}</em></p>
+        </div>
+        {% endfor %}
+    </main>
+    <footer>
+        <p>&copy; 2026 Second Hand Commodities. Admin: Mbugua</p>
+    </footer>
+</body>
+</html>
